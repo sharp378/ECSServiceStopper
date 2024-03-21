@@ -2,10 +2,11 @@
 A simple .NET AWS Lambda that stops an ECS service
 
 Requires the following environment variables to be set:  
-`ECS_CLUSTER`
+  
+`ECS_CLUSTER`  
 The cluster name or ARN holding the service to stop
-
-`ECS_SERVICE`
+  
+`ECS_SERVICE`  
 The service name or ARN to stop
 
 
