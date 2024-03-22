@@ -11,8 +11,8 @@
       "Properties": {
         "Runtime": "dotnet8",
         "CodeUri": ".",
-        "MemorySize": 256,
-        "Timeout": 30,
+        "MemorySize": 128,
+        "Timeout": 10,
         "Policies": [
           "AWSLambdaBasicExecutionRole"
         ],

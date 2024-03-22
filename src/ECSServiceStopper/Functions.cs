@@ -12,6 +12,7 @@ namespace ECSServiceStopper;
 /// <summary>
 /// Holds function handlers for Lambda invocations 
 /// </summary>
+/// <param name="client">The ECS client</param>
 public class Functions(IAmazonECS client)
 {
     /// <summary>
@@ -20,7 +21,7 @@ public class Functions(IAmazonECS client)
     /// <param name="input">(UNUSED) The event for the Lambda function handler to process.</param>
     /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
     /// <returns></returns>
-    [LambdaFunction]
+    [LambdaFunction(MemorySize = 128, Timeout = 10)]
     public async Threading.Task StopECSServiceAsync(string input, ILambdaContext context)
     {
         var cluster = Environment.GetEnvironmentVariable("ECS_CLUSTER")
