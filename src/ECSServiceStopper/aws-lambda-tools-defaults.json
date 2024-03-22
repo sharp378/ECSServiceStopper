@@ -8,9 +8,9 @@
   "profile": "",
   "region": "",
   "configuration": "Release",
-  "function-architecture": "x86_64",
   "function-runtime": "dotnet8",
-  "function-memory-size": 512,
-  "function-timeout": 30,
-  "function-handler": "ECSServiceStopper::ECSServiceStopper.Function::FunctionHandler"
+  "function-memory-size": 128,
+  "function-timeout": 5,
+  "function-handler": "ECSServiceStopper",
+  "msbuild-parameters": "--self-contained true"
 }
