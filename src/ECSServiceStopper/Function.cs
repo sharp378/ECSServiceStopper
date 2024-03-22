@@ -1,6 +1,5 @@
 using Amazon.ECS;
 using Amazon.ECS.Model;
-using Amazon.Lambda.Annotations;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,11 +11,12 @@ namespace ECSServiceStopper;
 public class Function(IAmazonECS client)
 {
     /// <summary>
-    /// Stops an ECS service
+    /// Stops an ECS service by setting its desired count to zero.
     /// </summary>
-    /// <returns></returns>
-    [LambdaFunction]
-    public async System.Threading.Tasks.Task FunctionHandler()
+    /// <param name="input">(UNUSED) The event for the Lambda function handler to process.</param>
+    /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
+    /// <returns></returns> 
+    public async System.Threading.Tasks.Task FunctionHandler(string input, ILambdaContext context)
     {
         var cluster = Environment.GetEnvironmentVariable("ECS_CLUSTER")
             ?? throw new NullReferenceException("ECS_CLUSTER environment variable is required");
@@ -35,7 +35,6 @@ public class Function(IAmazonECS client)
     }
 }
 
-[LambdaStartup]
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)

@@ -1,5 +1,6 @@
 using Amazon.ECS;
 using Amazon.ECS.Model;
+using Amazon.Lambda.TestUtilities;
 using Moq;
 using Xunit;
 using Threading = System.Threading.Tasks;
@@ -28,15 +29,21 @@ public class FunctionTest
         Environment.SetEnvironmentVariable("ECS_CLUSTER", null);
         Environment.SetEnvironmentVariable("ECS_SERVICE", null);
 
+        var input = "";
+        var context = new TestLambdaContext();
+
         // SUT & Assert
         await Assert.ThrowsAsync<NullReferenceException>(() =>
-            _function.FunctionHandler());
+            _function.FunctionHandler(input, context));
     }
 
     [Fact]
     public async Threading.Task UpdateFailed_Exception()
     {
         // Setup
+        var input = "";
+        var context = new TestLambdaContext();
+
         _ecsClient
             .Setup(ecs => ecs.UpdateServiceAsync(
                 It.IsAny<UpdateServiceRequest>(), 
@@ -45,13 +52,17 @@ public class FunctionTest
 
         // SUT & Assert
         await Assert.ThrowsAsync<AmazonECSException>(() =>
-            _function.FunctionHandler());
+            _function.FunctionHandler(input, context));
     }
 
     [Fact]
     public async Threading.Task Success()
     {
+        // Setup
+        var input = "";
+        var context = new TestLambdaContext();
+
         // SUT
-        await _function.FunctionHandler();
+        await _function.FunctionHandler(input, context);
     }
 }
