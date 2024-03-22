@@ -8,9 +8,8 @@
   "profile": "",
   "region": "",
   "configuration": "Release",
-  "function-architecture": "x86_64",
-  "function-runtime": "dotnet8",
-  "function-memory-size": 128,
-  "function-timeout": 8,
-  "function-handler": "ECSServiceStopper::ECSServiceStopper.Function::FunctionHandler"
+  "s3-prefix": "ECSServiceStopper/",
+  "template": "serverless.template",
+  "template-parameters": "",
+  "docker-host-build-output-dir": "./bin/Release/lambda-publish"
 }

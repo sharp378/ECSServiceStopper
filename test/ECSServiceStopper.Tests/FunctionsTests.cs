@@ -7,19 +7,19 @@ using Threading = System.Threading.Tasks;
 
 namespace ECSServiceStopper.Tests;
 
-public class FunctionTest
+public class FunctionsTest
 {
-    private readonly Function _function;
+    private readonly Functions _functions;
     private Mock<IAmazonECS> _ecsClient;
 
-    public FunctionTest()
+    public FunctionsTest()
     {
         Environment.SetEnvironmentVariable("ECS_CLUSTER", "cluster");
         Environment.SetEnvironmentVariable("ECS_SERVICE", "service");
 
         _ecsClient = new Mock<IAmazonECS>();
 
-        _function = new Function(_ecsClient.Object);
+        _functions = new Functions(_ecsClient.Object);
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class FunctionTest
 
         // SUT & Assert
         await Assert.ThrowsAsync<NullReferenceException>(() =>
-            _function.FunctionHandler(input, context));
+            _functions.StopECSServiceAsync(input, context));
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class FunctionTest
 
         // SUT & Assert
         await Assert.ThrowsAsync<AmazonECSException>(() =>
-            _function.FunctionHandler(input, context));
+            _functions.StopECSServiceAsync(input, context));
     }
 
     [Fact]
@@ -63,6 +63,6 @@ public class FunctionTest
         var context = new TestLambdaContext();
 
         // SUT
-        await _function.FunctionHandler(input, context);
+        await _functions.StopECSServiceAsync(input, context);
     }
 }
